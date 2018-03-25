@@ -50,7 +50,7 @@ namespace Dungeon_Creator
         void ListBoxRefresh(ListBox ListBox1 ,String[] Items){
             ListBox1.Items.Clear();
             for (int i = 0; i <= Items.Length-1; i++) {
-                ListBox1.Items.Add( Items[i].Replace(path1,"").Replace("/", "").Replace(@"\",""));
+                ListBox1.Items.Add( Items[i].Replace(path1,"").Replace("/", "").Replace(@"\",""));  //ПОФИКСИТЬ ПОКА НЕ СГОРЕЛ ОТ  СТЫДА
             }
 
         }
