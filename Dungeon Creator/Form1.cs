@@ -18,21 +18,25 @@ using VB= Microsoft.VisualBasic.Interaction;
 
 namespace Dungeon_Creator
 {
+
+    
     public partial class Form1 : Form {
         public String buffer;
         Boolean flag = false;
-        public String path1 = "C:/Users/Pavlo/Desktop/DungeonCreator";
+        public String path1 = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/DungeonCreator";
         DirectoryInfo dirInfo;
         String[] Locations;
+        Proba p1 = new Proba();
+       
 
         public Form1()
         {
             InitializeComponent();
 
-            if (Directory.Exists(@"C:\Users\Pavlo\Desktop\DungeonCreator"))
+            if (Directory.Exists(path1))
             {
 
-                Locations = Directory.GetDirectories("C:/Users/Pavlo/Desktop/DungeonCreator");
+                Locations = Directory.GetDirectories(path1);
                 MessageBox.Show("Продолжаем разговор");
                 for (int i = 0; i <= Locations.Length - 1; i++)
                 {
@@ -41,20 +45,17 @@ namespace Dungeon_Creator
                 }
             }
             else {
-                Directory.CreateDirectory(@"C:\Users\Pavlo\Desktop\DungeonCreator");
+                Directory.CreateDirectory(path1);
                 MessageBox.Show("Еще не создано не одной локации, начинаем работу");
 
             }
-
+            p1.listboxproba = ListBox1;
+            p1.probaarray = Locations;
+           // Environment.SpecialFolder a = new Environment.SpecialFolder();
+           // a = "/Desktop";
+            MessageBox.Show(System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory));
         }
-        void ListBoxRefresh(ListBox ListBox1 ,String[] Items){
-            ListBox1.Items.Clear();
-            for (int i = 0; i <= Items.Length-1; i++) {
-                ListBox1.Items.Add( Items[i].Replace(path1,"").Replace("/", "").Replace(@"\",""));  //ПОФИКСИТЬ ПОКА НЕ СГОРЕЛ ОТ  СТЫДА
-            }
-
-        }
-        public void Main() {
+       public void Main() {
            
            CreateLocation(path1);
             
@@ -67,7 +68,7 @@ namespace Dungeon_Creator
             Array.Resize(ref Locations,n+1); 
             Locations[Locations.Length-1] = path;
             Directory.CreateDirectory(path);
-            ListBoxRefresh(ListBox1, Locations);
+            //ListBoxRefresh(ListBox1, Locations);
             //ListBox1.Refresh();
             CreateDungeons(path);
         }
@@ -90,10 +91,6 @@ namespace Dungeon_Creator
 
         
         }
-
-        void RefreshListBox(object listbox, String newpath) {
-
-        }
         void Dungeon(String path) {
            
         }
@@ -103,7 +100,6 @@ namespace Dungeon_Creator
                 AddText(fs, "<head>Это сгенерированная страница</head>");//можно и так
             }
         }
-      
         private static void AddText(FileStream fs, string value)
         {
             byte[] info = new UTF8Encoding(true).GetBytes(value);
@@ -111,7 +107,9 @@ namespace Dungeon_Creator
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
-            Main();
+            // p1.refresh();
+            RefreshLocations(ListBox1);
+
         }
 
        public void ListBox1_SelectedIndexChanged(object sender, EventArgs e){
@@ -140,5 +138,37 @@ namespace Dungeon_Creator
             
            
         }
+
+        void RefreshLocations(ListBox ListBox11 ) {
+            Locations = Directory.GetDirectories(path1);
+            //MessageBox.Show("Продолжаем разговор");
+            ListBox11.Items.Clear();
+            for (int i = 0; i <= Locations.Length - 1; i++)
+            {
+                dirInfo = new DirectoryInfo(Locations[i]);
+                ListBox11.Items.Add(dirInfo.Name);
+            }
+
+        }
     }
+
+    public class Proba
+    {
+        public String[] probaarray;    //String string
+                                       // public string[] a;
+        public ListBox listboxproba;
+       public void refresh()
+        {
+            probaarray = probaarray;
+            listboxproba.Items.Clear();
+            for (int i = 0; i < probaarray.Length; i++)
+            {
+                listboxproba.Items.Add(probaarray[i].Replace("C:/Users/Pavlo/Desktop/DungeonCreator", "").Replace("/", "").Replace(@"\", ""));  //ПОФИКСИТЬ ПОКА НЕ СГОРЕЛ ОТ  СТЫДА
+            }
+        }
+    }
+
+
+
+
 }
