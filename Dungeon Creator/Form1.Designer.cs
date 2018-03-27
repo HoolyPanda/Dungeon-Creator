@@ -34,6 +34,7 @@
             this.ListBox1 = new System.Windows.Forms.ListBox();
             this.maphtml0 = new System.Windows.Forms.WebBrowser();
             this.button0 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -88,11 +89,22 @@
             this.button0.UseVisualStyleBackColor = true;
             this.button0.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(17, 376);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button0);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.richTextBox0);
@@ -113,6 +125,7 @@
         private System.Windows.Forms.ListBox ListBox1;
         private System.Windows.Forms.WebBrowser maphtml0;
         private System.Windows.Forms.Button button0;
+        private System.Windows.Forms.Button button2;
     }
 }
 
