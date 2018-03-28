@@ -19,3 +19,4 @@ C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Debug\Dungeon Creator.exe
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Debug\Dungeon Creator.pdb
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Debug\Dungeon_Creator.Form2.resources
+C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Debug\Dungeon_Creator.Form3.resources

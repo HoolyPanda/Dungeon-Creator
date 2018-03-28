@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System;
 using System.IO;
-//using System.
-using System.Text;
 using Microsoft.VisualBasic;
 using VB= Microsoft.VisualBasic.Interaction;
 
@@ -18,17 +16,16 @@ using VB= Microsoft.VisualBasic.Interaction;
 
 namespace Dungeon_Creator
 {
-
-
     public partial class Form1 : Form {
         public String buffer;
         Boolean flag = false;
         public String path1 = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/DungeonCreator";
         DirectoryInfo dirInfo;
         String[] Locations;
-        Proba p1 = new Proba();
-        String currentdir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/DungeonCreator";//"";
+        //Proba p1 = new Proba();
+        String currentdir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/DungeonCreator";
         History History= new History();
+        Form3 NewLocSettings = new Form3();
 
 
         public Form1()
@@ -58,6 +55,7 @@ namespace Dungeon_Creator
         public void Main() {
 
             CreateLocation(path1);
+            NewLocSettings.ShowDialog();
 
         }
         void CreateLocation(string path)
@@ -107,9 +105,8 @@ namespace Dungeon_Creator
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
-            CreateLocation(path1);
-            RefreshLocations(ListBox1);
-
+            NewLocSettings.ShowDialog();
+          
         }
 
         public void ListBox1_SelectedIndexChanged(object sender, EventArgs e) {
@@ -196,22 +193,7 @@ namespace Dungeon_Creator
            
         }
     }
-
-    public class Proba
-    {
-        public String[] probaarray;    //String string
-                                       // public string[] a;
-        public ListBox listboxproba;
-        public void refresh()
-        {
-            probaarray = probaarray;
-            listboxproba.Items.Clear();
-            for (int i = 0; i < probaarray.Length; i++)
-            {
-                listboxproba.Items.Add(probaarray[i].Replace("C:/Users/Pavlo/Desktop/DungeonCreator", "").Replace("/", "").Replace(@"\", ""));  //ПОФИКСИТЬ ПОКА НЕ СГОРЕЛ ОТ  СТЫДА
-            }
-        }
-    }
+    
 
     public class History{
         public String[] ChooseHistory= new String[4];
