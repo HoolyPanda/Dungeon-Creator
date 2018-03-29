@@ -16,7 +16,8 @@ using VB= Microsoft.VisualBasic.Interaction;
 
 namespace Dungeon_Creator
 {
-    public partial class Form1 : Form {
+    public partial class Form1 : Form
+    {
         public String buffer;
         Boolean flag = false;
         public String path1 = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/DungeonCreator";
@@ -25,7 +26,7 @@ namespace Dungeon_Creator
         //Proba p1 = new Proba();
         String currentdir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/DungeonCreator";
         History History= new History();
-        Form3 NewLocSettings = new Form3();
+       
 
 
         public Form1()
@@ -52,10 +53,11 @@ namespace Dungeon_Creator
             
            
         }
-        public void Main() {
+        public void Main()
+        {
 
             CreateLocation(path1);
-            NewLocSettings.ShowDialog();
+           // NewLocSettings.ShowDialog();
 
         }
         void CreateLocation(string path)
@@ -70,12 +72,14 @@ namespace Dungeon_Creator
             CreateDungeons(path, encounterssumm);
 
         }
-        void CreateDungeons(string path, Int32 encounterssum) {
+        void CreateDungeons(string path, Int32 encounterssum)
+        {
 
             String[] dungeon = new String[0];
             int n = Convert.ToInt32(VB.InputBox("Введите количество подземелий"));
             Array.Resize(ref dungeon, n);
-            for (int i = 0; i <= n - 1; i++) {
+            for (int i = 0; i <= n - 1; i++)
+            {
 
                 dungeon[i] = VB.InputBox("Введите название подземелья" + " " + (i + 1));
                 Directory.CreateDirectory(path + "/" + dungeon[i]);
@@ -105,15 +109,19 @@ namespace Dungeon_Creator
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
+            Form3 NewLocSettings = new Form3();
             NewLocSettings.ShowDialog();
+          //  if (NewLocSettings.CancelButton)
           
         }
 
-        public void ListBox1_SelectedIndexChanged(object sender, EventArgs e) {
+        public void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
             //String path = currentdir;
             String selecteditm;
-            if (ListBox1.SelectedIndex != -1) {
+            if (ListBox1.SelectedIndex != -1)
+            {
                 selecteditm = Convert.ToString(ListBox1.Items[ListBox1.SelectedIndex]);
 
                 if (currentdir == path1)
@@ -149,7 +157,8 @@ namespace Dungeon_Creator
 
         }
 
-        void RefreshLocations(ListBox ListBox11) {
+        void RefreshLocations(ListBox ListBox11)
+        {
             Locations = Directory.GetDirectories(path1);
             ListBox11.Items.Clear();
             for (int i = 0; i <= Locations.Length - 1; i++)
@@ -195,7 +204,8 @@ namespace Dungeon_Creator
     }
     
 
-    public class History{
+    public class History
+    {
         public String[] ChooseHistory= new String[4];
         public Int32 ClickCounter;
     }
