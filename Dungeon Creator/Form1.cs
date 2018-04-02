@@ -117,8 +117,6 @@ namespace Dungeon_Creator
 
         public void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            //String path = currentdir;
             String selecteditm;
             if (ListBox1.SelectedIndex != -1)
             {

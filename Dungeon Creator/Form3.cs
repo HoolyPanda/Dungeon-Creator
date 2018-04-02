@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,22 +15,11 @@ namespace Dungeon_Creator
 
     public partial class Form3 : Form
     {
-
-        void doDatShiet(Int32 left, Int32 right)
-        {
-            for (int i = left; i != right - 1; i++)
-            {
-                for (int j = left + 1; j != right; j++)
-                {
-                    Console.WriteLine(i * i + j * j);
-                }
-
-            }
-        }
         public Location NewLocation = new Location();
         Location.Encounter[] Encounter = new Location.Encounter[1];
         Location.Dungeon[] Dungeon = new Location.Dungeon[1];
         Boolean enc = true;
+        string path;
        // Location.Encounter.Action[] Actions = new Location.Encounter.Action[4];
         public Form3()
         {
@@ -40,21 +30,16 @@ namespace Dungeon_Creator
         {
             int i = Encounter.Length;
             MessageBox.Show(Convert.ToString(i-1));
-            Encounter[i-1].name = Convert.ToString(i);//VB.InputBox("Name");
+            Encounter[i-1].name = Convert.ToString(i);
             Encounter[i-1].Actions = new Location.Encounter.Action[4];
             listBox2.Items.Add(Encounter[i-1].name);
             i++;
             Array.Resize(ref Encounter, i);
             Array.Resize(ref Encounter[i - 1].Actions, 4);
-            Array.Resize(ref Encounter, i);
-
             for (int j = 0; j < Encounter[i - 1].Actions.Length; j++)
             {
                 Encounter[i - 1].Actions[j].name = "Действие"+( i - 1 )+ " " + (j + 1);
-                //MessageBox.Show(Encounter[1].Actions[0].name);
-
             }
-           
         }
         public void list1DoubleClick(object sender, EventArgs e)
         {
@@ -81,14 +66,18 @@ namespace Dungeon_Creator
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             int save = 0;
+            
+
             if (enc == true)
             {
                 if (listBox2.SelectedIndex != -1)
                 {
                     if (listBox1.SelectedIndex != -1) { listBox1.SetSelected(listBox1.SelectedIndex, false); }
-                    
                     save = listBox2.SelectedIndex + 1;
+                    MessageBox.Show(Convert.ToString(listBox2.SelectedIndex));
                     listBox2.Items.Clear();
+
+
 
                     for (int i = 0; i != 4; i++)
                     {
@@ -96,30 +85,33 @@ namespace Dungeon_Creator
                     }
                     enc = false;
                 }
-                // MessageBox.Show(Encounter[listBox2.SelectedIndex-1].Actions[0].name);
-
-                
             }
             else
             {
                 Encounter[save].Actions[listBox2.SelectedIndex].dis = "описание 1 д1";
-                Encounter[save].Actions[listBox2.SelectedIndex].cons="последствие 1 д1";
+                Encounter[save].Actions[listBox2.SelectedIndex].cons = "последствие 1 д1";
                 label7.Text = "Описание";
                 richTextBox2.Text = Encounter[save].Actions[listBox2.SelectedIndex].dis;// Encounter[listBox2.SelectedIndex].dis;
                 label8.Text = "Последствия";
                 richTextBox0.Text = Encounter[save].Actions[listBox2.SelectedIndex].cons;
             }
         }
+        void AddSomeText(string path)
+        {
+            using (FileStream fs = File.Create(path))
+            {
+                AddText(fs, "<head>Это сгенерированная страница</head>");
+            }
+        }
+        private static void AddText(FileStream fs, string value)
+        {
+            byte[] info = new UTF8Encoding(true).GetBytes(value);
+            fs.Write(info, 0, info.Length);
+        }
         private void button1_Click(object sender, EventArgs e)
         {
-            Int64 Summ= 0;
-            for (int i = 1; i != 3; i++) {
-               
-                Console.WriteLine(Convert.ToString(i));
-                Convert.ToString(Summ += i * i);
-
-            }
-            Console.Read();
+            
+            
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -127,11 +119,49 @@ namespace Dungeon_Creator
         }
         private void button3_Click(object sender, EventArgs e)
         {
-
+            //FolderBrowserDialog FBD = new FolderBrowserDialog();
+            OpenFileDialog FD= new OpenFileDialog();
+            if (FD.ShowDialog() == DialogResult.OK)
+            {
+                
+            }
+            path = FD.FileName;
+            MessageBox.Show(path);
+            using (StreamReader test = new StreamReader(path))
+            {
+                string a = test.ReadToEnd();
+                richTextBox1.Text = a;
+                test.Close();
+                test.Dispose();
+               // return;
+            }
+            //return;
+        }
+        void richTextBox1Redacting()
+        {
+            
+           
+        }
+        void saveText(string path1, RichTextBox data)
+        {
+           // MessageBox.Show(path1);
+            using (FileStream savetext = File.Create(path1))
+            {
+                String value = data.Text;
+                byte[] info = new UTF8Encoding(true).GetBytes(value);
+                savetext.Write(info, 0, info.Length);
+                MessageBox.Show("Save Ended");
+            }
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            //this.Dispose();
+            //saveText(path);
+            saveText(path, (RichTextBox)richTextBox1);
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            //saveText(path, (RichTextBox)sender);
         }
     }
 

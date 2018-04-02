@@ -144,6 +144,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(270, 154);
             this.richTextBox1.TabIndex = 14;
             this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // richTextBox0
             // 
@@ -255,7 +256,6 @@
             this.Controls.Add(this.textBox1);
             this.Name = "Form3";
             this.Text = "Form3";
-           // this.Load += new System.EventHandler(this.Form3_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
