@@ -17,7 +17,7 @@ namespace Dungeon_Creator
     {
         public Location NewLocation = new Location();
         public  Location.Encounter[] Encounter = new Location.Encounter[1];
-        Location.Dungeon[] Dungeon = new Location.Dungeon[1];
+        public Location.Dungeon[] Dungeon = new Location.Dungeon[1];
         Boolean enc = true;
         string path;
         int chousenenc;
@@ -31,7 +31,7 @@ namespace Dungeon_Creator
         public void listBoxDoubleClick(object sender, EventArgs e)
         {
             int i = Encounter.Length;
-            MessageBox.Show(Convert.ToString(i-1));
+           // MessageBox.Show(Convert.ToString(i-1));
             Encounter[i-1].name = Convert.ToString(i);
             Encounter[i-1].Actions = new Location.Encounter.Action[4];
             listBox2.Items.Add(Encounter[i-1].name);
@@ -40,7 +40,7 @@ namespace Dungeon_Creator
             Array.Resize(ref Encounter[i - 1].Actions, 4);
             for (int j = 0; j < Encounter[i - 1].Actions.Length; j++)
             {
-                Encounter[i - 1].Actions[j].name = "Действие"+( i - 1 )+ " " + (j + 1);
+                Encounter[i - 1].Actions[j].name = "Действие"+ " " + (j + 1);
             }
         }
         public void list1DoubleClick(object sender, EventArgs e)
@@ -50,12 +50,14 @@ namespace Dungeon_Creator
             Array.Resize(ref Dungeon, j);
             Dungeon[j- 1].name = VB.InputBox("Name");
             listBox1.Items.Add(Dungeon[j-1].name);
+            //MessageBox.Show(Convert.ToString (Dungeon.Length));
+            //Location.
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex != -1) {
                 if (listBox2.SelectedIndex != -1){ listBox2.SetSelected(listBox2.SelectedIndex, false);}
-                MessageBox.Show(Convert.ToString(listBox1.SelectedIndex));
+                //MessageBox.Show(Convert.ToString(listBox1.SelectedIndex));
                 label7.Text = "Описание";
                 richTextBox2.Text = Dungeon[listBox1.SelectedIndex].description;
                 label8.Text = "Условие Входа";
@@ -68,15 +70,15 @@ namespace Dungeon_Creator
         public void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             int save = 0;
-            
-
             if (enc == true)
             {
                 if (listBox2.SelectedIndex != -1)
                 {
-                    if (listBox1.SelectedIndex != -1) { listBox1.SetSelected(listBox1.SelectedIndex, false); }
+                    if (listBox1.SelectedIndex != -1)
+                    {
+                        listBox1.SetSelected(listBox1.SelectedIndex, false);
+                    }
                     save = listBox2.SelectedIndex + 1;
-                    MessageBox.Show(Convert.ToString(listBox2.SelectedIndex));
                     listBox2.Items.Clear();
                     for (int i = 0; i != 4; i++)
                     {
@@ -145,7 +147,7 @@ namespace Dungeon_Creator
 
             }
             path = FD.FileName;
-            MessageBox.Show(path);
+           // MessageBox.Show(path);
             using (StreamReader test = new StreamReader(path))
             {
                 string a = test.ReadToEnd();
@@ -162,7 +164,7 @@ namespace Dungeon_Creator
 
             }
             path = FD.FileName;
-            MessageBox.Show(path);
+           // MessageBox.Show(path);
             using (StreamReader test = new StreamReader(path))
             {
                 string a = test.ReadToEnd();
@@ -179,7 +181,7 @@ namespace Dungeon_Creator
 
             }
             path = FD.FileName;
-            MessageBox.Show(path);
+            //MessageBox.Show(path);
             using (StreamReader test = new StreamReader(path))
             {
                 string a = test.ReadToEnd();
@@ -193,7 +195,8 @@ namespace Dungeon_Creator
             MessageBox.Show(Convert.ToString(Encounter[chousenenc].Actions[chousenaaction]));
             MessageBox.Show(Encounter[chousenenc].Actions[chousenaaction].dis);
             MessageBox.Show(Encounter[chousenenc].Actions[chousenaaction].cons);
-        } private void richTextBox2_TextChanged(object sender, EventArgs e)
+        }
+        private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex != -1)
             {
@@ -223,10 +226,11 @@ namespace Dungeon_Creator
             {
                 Dungeon[listBox1.SelectedIndex].answer = richTextBox1.Text;
             }
-            else
-            {
-               
-            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            NewLocation.LocationName = textBox1.Text;
         }
     }
 

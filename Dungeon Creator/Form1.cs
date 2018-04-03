@@ -57,8 +57,8 @@ namespace Dungeon_Creator
         {
 
             CreateLocation(path1);
-           // NewLocSettings.ShowDialog();
-
+            
+           
         }
         void CreateLocation(string path)
         {
@@ -107,12 +107,50 @@ namespace Dungeon_Creator
             byte[] info = new UTF8Encoding(true).GetBytes(value);
             fs.Write(info, 0, info.Length);
         }
-        private void button1_Click_1(object sender, EventArgs e)
+        public void button1_Click_1(object sender, EventArgs e)
         {
             Form3 NewLocSettings = new Form3();
             NewLocSettings.ShowDialog();
-          //  if (NewLocSettings.CancelButton)
-          
+            string path = path1;
+            //Делаем локацию
+            path += "/" + NewLocSettings.NewLocation.LocationName;
+            Int32 n = Locations.Length;
+            Array.Resize(ref Locations, n + 1);
+            Locations[Locations.Length - 1] = path;
+            Directory.CreateDirectory(path);
+            Int32 encounterssumm = NewLocSettings.Encounter.Length;
+
+            //Делаем данж
+            String[] dungeon = new String[0];
+            Int32 o = NewLocSettings.Dungeon.Length; 
+            Array.Resize(ref dungeon, o);
+            for (int i = 0; i <= o - 1; i++)
+            {
+
+                dungeon[i] = NewLocSettings.Dungeon[i].name;
+                Directory.CreateDirectory(path + "/" + dungeon[i]);
+                //Делаем енкаунтеры
+                for (int j = 1; j != encounterssumm; j++)
+                {
+                    Directory.CreateDirectory(path + "/Encounters/" + (j));
+                    for (int k= 0;k<4;k++)
+                    {
+                        Directory.CreateDirectory(path + "/Encounters/" + (j)+"/"+"Действие"+(k+1));
+                        ////Здесь вытаскиваем описание и последствия 
+                        //using (FileStream fs = File.Create(path + "/Encounters/" + (j) + "/" + "Действие" + (k+1)+"/"+"dis.txt"))
+                        //{
+                        //   // AddText(fs, (string)NewLocSettings.Encounter[j].Actions[k].dis);
+                        //    byte[] info = new UTF8Encoding(true).GetBytes("Test1");
+                        //    fs.Write(info, 0, info.Length);
+
+                        //}
+                        File.WriteAllText(path + "/Encounters/" + (j) + "/" + "Действие" + (k+1) + "/" + "dis.txt", NewLocSettings.Encounter[j - 1].Actions[k].dis, Encoding.Default);
+                        File.WriteAllText(path + "/Encounters/" + (j) + "/" + "Действие" + (k+1) + "/" + "cons.txt", NewLocSettings.Encounter[j - 1].Actions[k].cons, Encoding.Default);
+                    }
+                }
+
+            }
+
         }
 
         public void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -121,35 +159,56 @@ namespace Dungeon_Creator
             if (ListBox1.SelectedIndex != -1)
             {
                 selecteditm = Convert.ToString(ListBox1.Items[ListBox1.SelectedIndex]);
+                MessageBox.Show(selecteditm);
 
-                if (currentdir == path1)
+                
+                if (selecteditm.Contains("Действие"))
                 {
-                    currentdir += "/" + selecteditm;
-                    History.ChooseHistory[1] = currentdir;
-                }
-                else { currentdir = currentdir + "/" + selecteditm.Replace(currentdir, "").Replace("/", "").Replace(@"\", ""); }
-                History.ClickCounter += 1;
-                History.ChooseHistory[History.ClickCounter] = currentdir; 
-                String[] actions = Directory.GetDirectories(currentdir);
-
-                if (actions.Length != 0)
-                {
-                    ListBox1.Items.Clear();
-
-                    for (int i = 0; i <= actions.Length - 1; i++)
+                    String act = "/" + selecteditm + "/dis.txt";
+                    label2.Text = "Описание";
+                    label3.Text = "Последствия";
+                    using (StreamReader SR = new StreamReader(currentdir + act))
                     {
-                        ListBox1.Items.Add(actions[i].Replace(currentdir + @"\", ""));
+                        richTextBox0.Text = SR.ReadToEnd();
                     }
-                   
-
+                     act = "/" + selecteditm + "/dis.txt";
+                    using (StreamReader SR = new StreamReader(currentdir + act))
+                    {
+                        richTextBox2.Text = SR.ReadToEnd();
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Нет действий");
-                    currentdir = History.ChooseHistory[History.ClickCounter-1];
-                    History.ChooseHistory[History.ClickCounter] = "";
-                    History.ClickCounter -= 1;
-                }
+                    if (currentdir == path1)
+                    {
+                        currentdir += "/" + selecteditm;
+                        History.ChooseHistory[1] = currentdir;
+                    }
+                    else { currentdir = currentdir + "/" + selecteditm.Replace(currentdir, "").Replace("/", "").Replace(@"\", ""); }
+
+
+
+                    History.ClickCounter += 1;
+                    History.ChooseHistory[History.ClickCounter] = currentdir;
+                    String[] actions = Directory.GetDirectories(currentdir);
+
+                    if (actions.Length != 0)
+                    {
+                        ListBox1.Items.Clear();
+
+                        for (int i = 0; i <= actions.Length - 1; i++)
+                        {
+                            ListBox1.Items.Add(actions[i].Replace(currentdir + @"\", ""));
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Нет действий");
+                        currentdir = History.ChooseHistory[History.ClickCounter - 1];
+                        History.ChooseHistory[History.ClickCounter] = "";
+                        History.ClickCounter -= 1;
+                    }
+                }   
             }
 
 
@@ -169,7 +228,6 @@ namespace Dungeon_Creator
 
         private void button2_Click(object sender, EventArgs e)
         {
-           // MessageBox.Show(Convert.ToString(History.ClickCounter));
             if (History.ClickCounter-1 >=0)
             {
                 currentdir = History.ChooseHistory[History.ClickCounter - 1];
@@ -187,8 +245,6 @@ namespace Dungeon_Creator
                     {
                         ListBox1.Items.Add(actions1[i].Replace(currentdir + @"\", ""));
                     }
-
-
                 }
                 else
                 {
@@ -199,8 +255,13 @@ namespace Dungeon_Creator
             }
            
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-    
+
 
     public class History
     {
