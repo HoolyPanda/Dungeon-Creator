@@ -136,6 +136,8 @@
             this.richTextBox2.Size = new System.Drawing.Size(270, 130);
             this.richTextBox2.TabIndex = 15;
             this.richTextBox2.Text = "";
+            this.richTextBox2.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
+            this.richTextBox2.DoubleClick += new System.EventHandler(this.richTextBox2DoubleClick);
             // 
             // richTextBox1
             // 
@@ -144,7 +146,8 @@
             this.richTextBox1.Size = new System.Drawing.Size(270, 154);
             this.richTextBox1.TabIndex = 14;
             this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged_1);
+            this.richTextBox1.DoubleClick += new System.EventHandler(this.richTextBox1DoubleClick);
             // 
             // richTextBox0
             // 
@@ -153,6 +156,8 @@
             this.richTextBox0.Size = new System.Drawing.Size(270, 130);
             this.richTextBox0.TabIndex = 13;
             this.richTextBox0.Text = "";
+            this.richTextBox0.TextChanged += new System.EventHandler(this.richTextBox0_TextChanged);
+            this.richTextBox0.DoubleClick += new System.EventHandler(this.richTextBox0DoubleClick);
             // 
             // webBrowser1
             // 

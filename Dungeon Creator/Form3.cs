@@ -16,11 +16,13 @@ namespace Dungeon_Creator
     public partial class Form3 : Form
     {
         public Location NewLocation = new Location();
-        Location.Encounter[] Encounter = new Location.Encounter[1];
+        public  Location.Encounter[] Encounter = new Location.Encounter[1];
         Location.Dungeon[] Dungeon = new Location.Dungeon[1];
         Boolean enc = true;
         string path;
-       // Location.Encounter.Action[] Actions = new Location.Encounter.Action[4];
+        int chousenenc;
+        int chousenaaction;
+        int chousendungeon;
         public Form3()
         {
             InitializeComponent();
@@ -63,7 +65,7 @@ namespace Dungeon_Creator
             }
             
         }
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        public void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             int save = 0;
             
@@ -76,9 +78,6 @@ namespace Dungeon_Creator
                     save = listBox2.SelectedIndex + 1;
                     MessageBox.Show(Convert.ToString(listBox2.SelectedIndex));
                     listBox2.Items.Clear();
-
-
-
                     for (int i = 0; i != 4; i++)
                     {
                         listBox2.Items.Add(Encounter[save].Actions[i].name);
@@ -88,12 +87,16 @@ namespace Dungeon_Creator
             }
             else
             {
-                Encounter[save].Actions[listBox2.SelectedIndex].dis = "описание 1 д1";
-                Encounter[save].Actions[listBox2.SelectedIndex].cons = "последствие 1 д1";
-                label7.Text = "Описание";
-                richTextBox2.Text = Encounter[save].Actions[listBox2.SelectedIndex].dis;// Encounter[listBox2.SelectedIndex].dis;
-                label8.Text = "Последствия";
-                richTextBox0.Text = Encounter[save].Actions[listBox2.SelectedIndex].cons;
+                if (listBox2.SelectedIndex != -1)
+                {
+                    if (listBox1.SelectedIndex != -1) { listBox1.SetSelected(listBox1.SelectedIndex, false); richTextBox1.Text = ""; }
+                    chousenenc = save;
+                    chousenaaction = listBox2.SelectedIndex; label7.Text = "Описание";
+                    richTextBox2.Text = Encounter[save].Actions[listBox2.SelectedIndex].dis;
+                    label8.Text = "Последствия";
+                    richTextBox0.Text = Encounter[save].Actions[listBox2.SelectedIndex].cons;
+                }
+                
             }
         }
         void AddSomeText(string path)
@@ -119,7 +122,6 @@ namespace Dungeon_Creator
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            //FolderBrowserDialog FBD = new FolderBrowserDialog();
             OpenFileDialog FD= new OpenFileDialog();
             if (FD.ShowDialog() == DialogResult.OK)
             {
@@ -133,38 +135,102 @@ namespace Dungeon_Creator
                 richTextBox1.Text = a;
                 test.Close();
                 test.Dispose();
-               // return;
             }
-            //return;
-        }
-        void richTextBox1Redacting()
+         }
+        void richTextBox0DoubleClick(object sender, EventArgs e)
         {
-            
-           
-        }
-        void saveText(string path1, RichTextBox data)
-        {
-           // MessageBox.Show(path1);
-            using (FileStream savetext = File.Create(path1))
+            OpenFileDialog FD = new OpenFileDialog();
+            if (FD.ShowDialog() == DialogResult.OK)
             {
-                String value = data.Text;
-                byte[] info = new UTF8Encoding(true).GetBytes(value);
-                savetext.Write(info, 0, info.Length);
-                MessageBox.Show("Save Ended");
+
+            }
+            path = FD.FileName;
+            MessageBox.Show(path);
+            using (StreamReader test = new StreamReader(path))
+            {
+                string a = test.ReadToEnd();
+                richTextBox0.Text = a;
+                test.Close();
+                test.Dispose();
             }
         }
+        void richTextBox2DoubleClick(object sender, EventArgs e)
+        {
+            OpenFileDialog FD = new OpenFileDialog();
+            if (FD.ShowDialog() == DialogResult.OK)
+            {
+
+            }
+            path = FD.FileName;
+            MessageBox.Show(path);
+            using (StreamReader test = new StreamReader(path))
+            {
+                string a = test.ReadToEnd();
+                richTextBox2.Text = a;
+                test.Close();
+                test.Dispose();
+            }
+        }
+        void richTextBox1DoubleClick(object sender, EventArgs e)
+        {
+            OpenFileDialog FD = new OpenFileDialog();
+            if (FD.ShowDialog() == DialogResult.OK)
+            {
+
+            }
+            path = FD.FileName;
+            MessageBox.Show(path);
+            using (StreamReader test = new StreamReader(path))
+            {
+                string a = test.ReadToEnd();
+                richTextBox1.Text = a;
+                test.Close();
+                test.Dispose();
+            }
+        } 
         private void button4_Click(object sender, EventArgs e)
         {
-            //saveText(path);
-            saveText(path, (RichTextBox)richTextBox1);
+            MessageBox.Show(Convert.ToString(Encounter[chousenenc].Actions[chousenaaction]));
+            MessageBox.Show(Encounter[chousenenc].Actions[chousenaaction].dis);
+            MessageBox.Show(Encounter[chousenenc].Actions[chousenaaction].cons);
+        } private void richTextBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex != -1)
+            {
+                Dungeon[listBox1.SelectedIndex].description = richTextBox2.Text;
+            }
+            else
+            {
+                Encounter[chousenenc].Actions[chousenaaction].dis = richTextBox2.Text;
+            }
         }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        private void richTextBox0_TextChanged(object sender, EventArgs e)
         {
-            //saveText(path, (RichTextBox)sender);
+            if (listBox1.SelectedIndex != -1)
+            {
+                Dungeon[listBox1.SelectedIndex].entrance = richTextBox0.Text;
+            }
+            else
+            {
+                Encounter[chousenenc].Actions[chousenaaction].cons = richTextBox0.Text;
+            }
+        }
+
+        private void richTextBox1_TextChanged_1(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex != -1)
+            {
+                Dungeon[listBox1.SelectedIndex].answer = richTextBox1.Text;
+            }
+            else
+            {
+               
+            }
         }
     }
 
+    //Классы-----------------------------------------------------
     public class Location
     {
         public String LocationName;
