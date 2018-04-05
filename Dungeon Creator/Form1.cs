@@ -173,11 +173,11 @@ namespace Dungeon_Creator
                         richTextBox2.Text = a;
                     }
                 }
-                else if((!selecteditm.Contains("Действие"))&(!selecteditm.Contains()))
-                {
-                    MessageBox.Show("Описание данжа");
-                    // доделать вывод инфы о данже 
-                }
+                //else if((!selecteditm.Contains("Действие"))&(!selecteditm.Contains()))
+                //{
+                //    MessageBox.Show("Описание данжа");
+                //    // доделать вывод инфы о данже 
+                //}
                 else
                 {
                     if (currentdir == path1)
