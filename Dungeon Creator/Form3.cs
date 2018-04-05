@@ -189,12 +189,22 @@ namespace Dungeon_Creator
                 test.Close();
                 test.Dispose();
             }
+            
         } 
         private void button4_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(Convert.ToString(Encounter[chousenenc].Actions[chousenaaction]));
-            MessageBox.Show(Encounter[chousenenc].Actions[chousenaaction].dis);
-            MessageBox.Show(Encounter[chousenenc].Actions[chousenaaction].cons);
+            OpenFileDialog FD = new OpenFileDialog();
+            if (FD.ShowDialog() == DialogResult.OK)
+            {
+
+            }
+            
+            FileInfo  fs = new FileInfo(FD.FileName);
+            NewLocation.imgPath = FD.FileName;
+            NewLocation.imgName = fs.Name;
+            MessageBox.Show(fs.Name);
+            MessageBox.Show(NewLocation.imgPath);
+            // webBrowser1.Url =new Uri( @NewLocation.imgPath);
         }
         private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
@@ -232,6 +242,11 @@ namespace Dungeon_Creator
         {
             NewLocation.LocationName = textBox1.Text;
         }
+
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
     }
 
     //Классы-----------------------------------------------------
@@ -239,6 +254,8 @@ namespace Dungeon_Creator
     {
         public String LocationName;
         public String[] Dungeons;
+        public String imgPath;
+        public String imgName;
         public struct Dungeon
         {
             public string name;
