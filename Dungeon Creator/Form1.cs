@@ -23,7 +23,6 @@ namespace Dungeon_Creator
         public String path1 = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/DungeonCreator";
         DirectoryInfo dirInfo;
         String[] Locations;
-        //Proba p1 = new Proba();
         String currentdir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/DungeonCreator";
         History History= new History();
        
@@ -35,7 +34,6 @@ namespace Dungeon_Creator
 
             if (Directory.Exists(path1))
             {
-
                 Locations = Directory.GetDirectories(path1);
                 MessageBox.Show("Продолжаем разговор");
                 for (int i = 0; i <= Locations.Length - 1; i++)
@@ -47,7 +45,6 @@ namespace Dungeon_Creator
             else {
                 Directory.CreateDirectory(path1);
                 MessageBox.Show("Еще не создано не одной локации, начинаем работу");
-
             }
             History.ChooseHistory[0] = path1;
             
@@ -55,10 +52,7 @@ namespace Dungeon_Creator
         }
         public void Main()
         {
-
             CreateLocation(path1);
-            
-           
         }
         void CreateLocation(string path)
         {
@@ -128,13 +122,15 @@ namespace Dungeon_Creator
             Int32 o = NewLocSettings.Dungeon.Length; 
             Array.Resize(ref dungeon, o);
            
-            for (int i = 0; i <= o - 1; i++)
+            for (int i = 1; i < o ; i++)
             {
                 dungeon[i] = NewLocSettings.Dungeon[i].name;
-                //Доделать создание фоайлов с описанием и всей хуйней для данжа
-                 Directory.CreateDirectory(path + "/" + dungeon[i]);
-                  //Делаем енкаунтеры
-                  for (int j = 1; j != encounterssumm; j++)
+                Directory.CreateDirectory(path + "/" + dungeon[i]); 
+                File.WriteAllText(path + "/" + dungeon[i]+  "/"+ "answer.txt",NewLocSettings.Dungeon[i-1].answer , Encoding.UTF8);
+                File.WriteAllText(path + "/" + dungeon[i] +  "/" + "description.txt", NewLocSettings.Dungeon[i-1].description , Encoding.UTF8);
+                File.WriteAllText(path + "/" + dungeon[i] +  "/" + "entrance.txt", NewLocSettings.Dungeon[i-1].entrance, Encoding.UTF8);
+                //Делаем енкаунтеры
+                for (int j = 1; j != encounterssumm; j++)
                   {
                       Directory.CreateDirectory(path + "/Encounters/" + (j));
                       for (int k = 0; k < 4; k++)
@@ -151,6 +147,7 @@ namespace Dungeon_Creator
 
         public void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+           
             String selecteditm;
             if (ListBox1.SelectedIndex != -1)
             {
@@ -173,11 +170,48 @@ namespace Dungeon_Creator
                         richTextBox2.Text = a;
                     }
                 }
-                //else if((!selecteditm.Contains("Действие"))&(!selecteditm.Contains()))
-                //{
-                //    MessageBox.Show("Описание данжа");
-                //    // доделать вывод инфы о данже 
-                //}
+                else if (File.Exists(currentdir+"/"+selecteditm+"/"+"answer.txt")|| File.Exists(currentdir + "/" + selecteditm + "/" + "description.txt") || File.Exists(currentdir + "/" + selecteditm + "/" + "entrance.txt"))
+                {
+                    try
+                    {
+                        String act = "/" + selecteditm + "/answer.txt";
+                        using (StreamReader fs = File.OpenText(currentdir + act))
+                        {
+                            string a = fs.ReadToEnd();
+                            richTextBox2.Text = a;
+                        }
+                    }
+                    finally
+                    {
+                        label3.Text = "Ответ";
+                    }
+                    try
+                    {
+                        String act = "/" + selecteditm + "/description.txt";
+                        using (StreamReader fs = File.OpenText(currentdir + act))
+                        {
+                            string a = fs.ReadToEnd();
+                            richTextBox0.Text = a;
+                        }
+                    }
+                    finally
+                    {
+                        label2.Text = "Описание";
+                    }
+                    try
+                    {
+                        label4.Text = "Условие входа";
+                    }
+                    finally
+                    {
+                        String act = "/" + selecteditm + "/entrance.txt";
+                        using (StreamReader fs = File.OpenText(currentdir + act))
+                        {
+                            string a = fs.ReadToEnd();
+                            richTextBox1.Text = a;
+                        }
+                    }
+                }
                 else
                 {
                     if (currentdir == path1)
@@ -187,7 +221,7 @@ namespace Dungeon_Creator
                     }
                     else { currentdir = currentdir + "/" + selecteditm.Replace(currentdir, "").Replace("/", "").Replace(@"\", ""); }
 
-
+                    MessageBox.Show(currentdir);
 
                     History.ClickCounter += 1;
                     History.ChooseHistory[History.ClickCounter] = currentdir;
@@ -222,9 +256,7 @@ namespace Dungeon_Creator
                 dirInfo = new DirectoryInfo(Locations[i]);
                 ListBox11.Items.Add(dirInfo.Name);
             }
-
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             if (History.ClickCounter-1 >=0)

@@ -19,6 +19,7 @@ namespace Dungeon_Creator
         public  Location.Encounter[] Encounter = new Location.Encounter[1];
         public Location.Dungeon[] Dungeon = new Location.Dungeon[1];
         Boolean enc = true;
+        Boolean isActions = false;
         string path;
         int chousenenc;
         int chousenaaction;
@@ -31,7 +32,6 @@ namespace Dungeon_Creator
         public void listBoxDoubleClick(object sender, EventArgs e)
         {
             int i = Encounter.Length;
-           // MessageBox.Show(Convert.ToString(i-1));
             Encounter[i-1].name = Convert.ToString(i);
             Encounter[i-1].Actions = new Location.Encounter.Action[4];
             listBox2.Items.Add(Encounter[i-1].name);
@@ -50,14 +50,11 @@ namespace Dungeon_Creator
             Array.Resize(ref Dungeon, j);
             Dungeon[j- 1].name = VB.InputBox("Name");
             listBox1.Items.Add(Dungeon[j-1].name);
-            //MessageBox.Show(Convert.ToString (Dungeon.Length));
-            //Location.
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex != -1) {
                 if (listBox2.SelectedIndex != -1){ listBox2.SetSelected(listBox2.SelectedIndex, false);}
-                //MessageBox.Show(Convert.ToString(listBox1.SelectedIndex));
                 label7.Text = "Описание";
                 richTextBox2.Text = Dungeon[listBox1.SelectedIndex].description;
                 label8.Text = "Условие Входа";
@@ -85,6 +82,7 @@ namespace Dungeon_Creator
                         listBox2.Items.Add(Encounter[save].Actions[i].name);
                     }
                     enc = false;
+                    isActions = true;
                 }
             }
             else
@@ -147,7 +145,6 @@ namespace Dungeon_Creator
 
             }
             path = FD.FileName;
-           // MessageBox.Show(path);
             using (StreamReader test = new StreamReader(path))
             {
                 string a = test.ReadToEnd();
@@ -164,7 +161,6 @@ namespace Dungeon_Creator
 
             }
             path = FD.FileName;
-           // MessageBox.Show(path);
             using (StreamReader test = new StreamReader(path))
             {
                 string a = test.ReadToEnd();
@@ -181,7 +177,6 @@ namespace Dungeon_Creator
 
             }
             path = FD.FileName;
-            //MessageBox.Show(path);
             using (StreamReader test = new StreamReader(path))
             {
                 string a = test.ReadToEnd();
@@ -204,7 +199,6 @@ namespace Dungeon_Creator
             NewLocation.imgName = fs.Name;
             MessageBox.Show(fs.Name);
             MessageBox.Show(NewLocation.imgPath);
-            // webBrowser1.Url =new Uri( @NewLocation.imgPath);
         }
         private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
