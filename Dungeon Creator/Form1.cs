@@ -108,7 +108,7 @@ namespace Dungeon_Creator
                 File.Copy(NewLocSettings.NewLocation.imgPath, path + "/" + NewLocSettings.NewLocation.imgName);
                 using (FileStream fs = File.Create(path + "/" + "map.html"))
                 {
-                    String s = "<body style=!background-color:#000000;! > <img src=!" + (NewLocSettings.NewLocation.imgName) + "!/></body>";
+                    String s = "<body style=\"background-color:#000000;\" > <img src=\" " + (NewLocSettings.NewLocation.imgName) + "\" /></body>";
                     AddText(fs, s.Replace('!', '"'));
                 }
             }
@@ -142,6 +142,7 @@ namespace Dungeon_Creator
                        }
                   }
             }
+            NewLocSettings.Dispose();
             RefreshLocations(ListBox1);
         }
 
