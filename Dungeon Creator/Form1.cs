@@ -126,9 +126,9 @@ namespace Dungeon_Creator
             {
                 dungeon[i] = NewLocSettings.Dungeon[i].name;
                 Directory.CreateDirectory(path + "/" + dungeon[i]); 
-                File.WriteAllText(path + "/" + dungeon[i]+  "/"+ "answer.txt",NewLocSettings.Dungeon[i-1].answer , Encoding.UTF8);
-                File.WriteAllText(path + "/" + dungeon[i] +  "/" + "description.txt", NewLocSettings.Dungeon[i-1].description , Encoding.UTF8);
-                File.WriteAllText(path + "/" + dungeon[i] +  "/" + "entrance.txt", NewLocSettings.Dungeon[i-1].entrance, Encoding.UTF8);
+                File.WriteAllText(path + "/" + dungeon[i]+  "/"+ "answer.txt",NewLocSettings.Dungeon[i-1].answer , Encoding.Default);
+                File.WriteAllText(path + "/" + dungeon[i] +  "/" + "description.txt", NewLocSettings.Dungeon[i-1].description , Encoding.Default);
+                File.WriteAllText(path + "/" + dungeon[i] +  "/" + "entrance.txt", NewLocSettings.Dungeon[i-1].entrance, Encoding.Default);
                 //Делаем енкаунтеры
                 for (int j = 1; j != encounterssumm; j++)
                   {
@@ -137,8 +137,8 @@ namespace Dungeon_Creator
                       {
                           Directory.CreateDirectory(path + "/Encounters/" + (j) + "/" + "Действие" + (k + 1));
                           //Здесь вытаскиваем описание и последствия 
-                          File.WriteAllText(path + "/Encounters/" + (j) + "/" + "Действие" + (k + 1) + "/" + "dis.txt", NewLocSettings.Encounter[j - 1].Actions[k].dis, Encoding.UTF8);
-                          File.WriteAllText(path + "/Encounters/" + (j) + "/" + "Действие" + (k + 1) + "/" + "cons.txt", NewLocSettings.Encounter[j - 1].Actions[k].cons, Encoding.UTF8);
+                          File.WriteAllText(path + "/Encounters/" + (j) + "/" + "Действие" + (k + 1) + "/" + "dis.txt", NewLocSettings.Encounter[j - 1].Actions[k].dis, Encoding.Default );
+                          File.WriteAllText(path + "/Encounters/" + (j) + "/" + "Действие" + (k + 1) + "/" + "cons.txt", NewLocSettings.Encounter[j - 1].Actions[k].cons, Encoding.Default );
                        }
                   }
             }
@@ -222,7 +222,7 @@ namespace Dungeon_Creator
                     }
                     else { currentdir = currentdir + "/" + selecteditm.Replace(currentdir, "").Replace("/", "").Replace(@"\", ""); }
 
-                    MessageBox.Show(currentdir);
+                  // MessageBox.Show(currentdir);
 
                     History.ClickCounter += 1;
                     History.ChooseHistory[History.ClickCounter] = currentdir;

@@ -111,15 +111,7 @@ namespace Dungeon_Creator
             byte[] info = new UTF8Encoding(true).GetBytes(value);
             fs.Write(info, 0, info.Length);
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-            
-        }
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
+       
         private void button3_Click(object sender, EventArgs e)
         {
             OpenFileDialog FD= new OpenFileDialog();
@@ -145,13 +137,9 @@ namespace Dungeon_Creator
 
             }
             path = FD.FileName;
-            using (StreamReader test = new StreamReader(path))
-            {
-                string a = test.ReadToEnd();
-                richTextBox0.Text = a;
-                test.Close();
-                test.Dispose();
-            }
+            byte[] info = File.ReadAllBytes(path);
+            string str = Encoding.Default.GetString(info, 0, info.Length);
+            richTextBox0.Text = str;
         }
         void richTextBox2DoubleClick(object sender, EventArgs e)
         {
@@ -161,13 +149,9 @@ namespace Dungeon_Creator
 
             }
             path = FD.FileName;
-            using (StreamReader test = new StreamReader(path))
-            {
-                string a = test.ReadToEnd();
-                richTextBox2.Text = a;
-                test.Close();
-                test.Dispose();
-            }
+            byte[] info = File.ReadAllBytes(path);
+            string str = Encoding.Default.GetString(info, 0, info.Length);
+            richTextBox2.Text = str;
         }
         void richTextBox1DoubleClick(object sender, EventArgs e)
         {
@@ -177,14 +161,9 @@ namespace Dungeon_Creator
 
             }
             path = FD.FileName;
-            using (StreamReader test = new StreamReader(path))
-            {
-                string a = test.ReadToEnd();
-                richTextBox1.Text = a;
-                test.Close();
-                test.Dispose();
-            }
-            
+            byte[] info = File.ReadAllBytes(path);
+            string str = Encoding.Default.GetString(info, 0, info.Length);
+            richTextBox1.Text = str;
         } 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -220,7 +199,7 @@ namespace Dungeon_Creator
             }
             else
             {
-                Encounter[chousenenc].Actions[chousenaaction].cons = richTextBox0.Text;
+               Encounter[chousenenc].Actions[chousenaaction].cons = richTextBox0.Text;//защитить
             }
         }
 
