@@ -45,6 +45,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -103,7 +104,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(158, 265);
+            this.label5.Location = new System.Drawing.Point(158, 241);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 13);
             this.label5.TabIndex = 8;
@@ -112,7 +113,7 @@
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(161, 281);
+            this.listBox2.Location = new System.Drawing.Point(161, 257);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(120, 186);
             this.listBox2.TabIndex = 7;
@@ -122,7 +123,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(171, 265);
+            this.label6.Location = new System.Drawing.Point(171, 241);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 6;
@@ -149,7 +150,7 @@
             // 
             // richTextBox0
             // 
-            this.richTextBox0.Location = new System.Drawing.Point(584, 51);
+            this.richTextBox0.Location = new System.Drawing.Point(593, 51);
             this.richTextBox0.Name = "richTextBox0";
             this.richTextBox0.Size = new System.Drawing.Size(270, 130);
             this.richTextBox0.TabIndex = 13;
@@ -159,7 +160,7 @@
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(308, 215);
+            this.webBrowser1.Location = new System.Drawing.Point(311, 187);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(267, 250);
@@ -195,19 +196,31 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(584, 448);
+            this.button4.Location = new System.Drawing.Point(311, 443);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.Size = new System.Drawing.Size(267, 23);
             this.button4.TabIndex = 23;
-            this.button4.Text = "button4";
+            this.button4.Text = "Выбрать карту";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(161, 449);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(120, 23);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "Назад к енкаунтерам";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(875, 483);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -251,5 +264,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button1;
     }
 }

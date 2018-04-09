@@ -25,9 +25,6 @@ namespace Dungeon_Creator
         String[] Locations;
         String currentdir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/DungeonCreator";
         History History= new History();
-       
-
-
         public Form1()
         {
             InitializeComponent();
@@ -47,8 +44,6 @@ namespace Dungeon_Creator
                 MessageBox.Show("Еще не создано не одной локации, начинаем работу");
             }
             History.ChooseHistory[0] = path1;
-            
-           
         }
         public void Main()
         {
@@ -73,8 +68,6 @@ namespace Dungeon_Creator
             {
                 dungeon[i] = VB.InputBox("Введите название подземелья" + " " + (i + 1));
                 Directory.CreateDirectory(path + "/" + dungeon[i]);
-
-
                 for (int j = 0; j < encounterssum; j++)
                 {
                     Directory.CreateDirectory(path + "/Encounters/" + (j + 1));
@@ -103,42 +96,45 @@ namespace Dungeon_Creator
             Array.Resize(ref Locations, n + 1);
             Locations[Locations.Length - 1] = path;
             Directory.CreateDirectory(path);
-            try
-            {
-                File.Copy(NewLocSettings.NewLocation.imgPath, path + "/" + NewLocSettings.NewLocation.imgName);
-                using (FileStream fs = File.Create(path + "/" + "map.html"))
-                {
-                    String s = "<body style=\"background-color:#000000;\" > <img src=\" " + (NewLocSettings.NewLocation.imgName) + "\" /></body>";
-                    AddText(fs, s.Replace('!', '"'));
-                }
-            }
-            catch
-            {
-            }
-            Int32 encounterssumm = NewLocSettings.Encounter.Length;
             
             //Делаем данж
             String[] dungeon = new String[0];
             Int32 o = NewLocSettings.Dungeon.Length; 
             Array.Resize(ref dungeon, o);
            
-            for (int i = 1; i < o ; i++)
+            for (int i = 0; i < o ; i++)
             {
                 dungeon[i] = NewLocSettings.Dungeon[i].name;
-                Directory.CreateDirectory(path + "/" + dungeon[i]); 
-                File.WriteAllText(path + "/" + dungeon[i]+  "/"+ "answer.txt",NewLocSettings.Dungeon[i-1].answer , Encoding.Default);
-                File.WriteAllText(path + "/" + dungeon[i] +  "/" + "description.txt", NewLocSettings.Dungeon[i-1].description , Encoding.Default);
-                File.WriteAllText(path + "/" + dungeon[i] +  "/" + "entrance.txt", NewLocSettings.Dungeon[i-1].entrance, Encoding.Default);
+                Directory.CreateDirectory(path + "/" + dungeon[i]);
+                Directory.CreateDirectory(path + "/" + dungeon[i]+"/"+"Map");
+                try
+                {
+                    //MessageBox.Show(NewLocSettings.Dungeon[i-1].imgPath);
+                    File.Copy(NewLocSettings.Dungeon[i].imgPath , path + "/" + dungeon[i] + "/" + "Map" + "/"+ NewLocSettings.Dungeon[i].imgName);
+                    using (FileStream fs = File.Create(path + "/" + dungeon[i] + "/" + "Map" + "/" + "map.html"))
+                    {
+                        String s = "<body style=\"background-color:#000000;\" > <img src=\" " + (NewLocSettings.Dungeon[i].imgName) + "\" /></body>";
+                        AddText(fs, s);
+                    }
+                }
+                catch
+                {
+                }
+               
+                File.WriteAllText(path + "/" + dungeon[i]+  "/"+ "answer.txt",NewLocSettings.Dungeon[i].answer , Encoding.Default);
+                File.WriteAllText(path + "/" + dungeon[i] +  "/" + "description.txt", NewLocSettings.Dungeon[i].description , Encoding.Default);
+                File.WriteAllText(path + "/" + dungeon[i] +  "/" + "entrance.txt", NewLocSettings.Dungeon[i].entrance, Encoding.Default);
                 //Делаем енкаунтеры
-                for (int j = 1; j != encounterssumm; j++)
+                for (int j = 0; j != NewLocSettings.Dungeon[i].Encounters.Length; j++)
                   {
-                      Directory.CreateDirectory(path + "/Encounters/" + (j));
+                      Directory.CreateDirectory(path + "/" + dungeon[i] + "/Encounters/" + (j+1));
                       for (int k = 0; k < 4; k++)
                       {
-                          Directory.CreateDirectory(path + "/Encounters/" + (j) + "/" + "Действие" + (k + 1));
-                          //Здесь вытаскиваем описание и последствия 
-                          File.WriteAllText(path + "/Encounters/" + (j) + "/" + "Действие" + (k + 1) + "/" + "dis.txt", NewLocSettings.Encounter[j - 1].Actions[k].dis, Encoding.Default );
-                          File.WriteAllText(path + "/Encounters/" + (j) + "/" + "Действие" + (k + 1) + "/" + "cons.txt", NewLocSettings.Encounter[j - 1].Actions[k].cons, Encoding.Default );
+                          Directory.CreateDirectory(path + "/" + dungeon[i] + "/Encounters/" + (j+1) + "/" + "Действие" + (k + 1));
+                        //Здесь вытаскиваем описание и последствия 
+                        if ((NewLocSettings.Dungeon[i].Encounters[j].Actions[k].dis!= "")||(NewLocSettings.Dungeon[i].Encounters[j].Actions[k].cons!="")) { }
+                          File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j+1) + "/" + "Действие" + (k + 1) + "/" + "dis.txt", NewLocSettings.Dungeon[i].Encounters[j ].Actions[k].dis, Encoding.Default );
+                          File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j+1) + "/" + "Действие" + (k + 1) + "/" + "cons.txt", NewLocSettings.Dungeon[i].Encounters[j].Actions[k].cons, Encoding.Default );
                        }
                   }
             }
