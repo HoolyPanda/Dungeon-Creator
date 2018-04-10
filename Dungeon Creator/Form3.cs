@@ -27,7 +27,7 @@ namespace Dungeon_Creator
         public Form3()
         {
             InitializeComponent();
-            textBox1.Focus();
+            //textBox1.Focus();
         }
         public void listBoxDoubleClick(object sender, EventArgs e)
         {

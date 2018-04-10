@@ -24,6 +24,9 @@ namespace Dungeon_Creator
         DirectoryInfo dirInfo;
         String[] Locations;
         String currentdir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/DungeonCreator";
+        String chousenDungeon;
+        String chiusenEncounter= "";
+        String chousenActivity= "";
         History History= new History();
         public Form1()
         {
@@ -45,35 +48,9 @@ namespace Dungeon_Creator
             }
             History.ChooseHistory[0] = path1;
         }
-        public void Main()
-        {
-            CreateLocation(path1);
-        }
-        void CreateLocation(string path)
-        {
-            path += "/" + VB.InputBox("Введите название новой локации");
-            Int32 n = Locations.Length;
-            Array.Resize(ref Locations, n + 1);
-            Locations[Locations.Length - 1] = path;
-            Directory.CreateDirectory(path);
-            Int32 encounterssumm = Convert.ToInt32(VB.InputBox("Введите количество событий"));
-            CreateDungeons(path, encounterssumm);
-        }
-        void CreateDungeons(string path, Int32 encounterssum)
-        {
-            String[] dungeon = new String[0];
-            int n = Convert.ToInt32(VB.InputBox("Введите количество подземелий"));
-            Array.Resize(ref dungeon, n);
-            for (int i = 0; i <= n - 1; i++)
-            {
-                dungeon[i] = VB.InputBox("Введите название подземелья" + " " + (i + 1));
-                Directory.CreateDirectory(path + "/" + dungeon[i]);
-                for (int j = 0; j < encounterssum; j++)
-                {
-                    Directory.CreateDirectory(path + "/Encounters/" + (j + 1));
-                }
-            }
-        }
+       
+        
+        
         void AddSomeText(string path) {
             using (FileStream fs = File.Create(path))
             {
@@ -126,19 +103,22 @@ namespace Dungeon_Creator
                 File.WriteAllText(path + "/" + dungeon[i] +  "/" + "entrance.txt", NewLocSettings.Dungeon[i].entrance, Encoding.Default);
                 //Делаем енкаунтеры
                 for (int j = 0; j != NewLocSettings.Dungeon[i].Encounters.Length; j++)
-                  {
+                {
                       Directory.CreateDirectory(path + "/" + dungeon[i] + "/Encounters/" + (j+1));
                     File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j + 1) + "/" +  "dis.txt", NewLocSettings.Dungeon[i].Encounters[j].dis, Encoding.Default);
                     for (int k = 0; k < 4; k++)
-                      {
-                          Directory.CreateDirectory(path + "/" + dungeon[i] + "/Encounters/" + (j+1) + "/" + "Действие" + (k + 1));
-                          //MessageBox.Show(NewLocSettings.Dungeon[i].Encounters[0].dis);
+                    {
+                         
                           //Здесь вытаскиваем описание и последствия 
-                          if ((NewLocSettings.Dungeon[i].Encounters[j].Actions[k].dis!= "")||(NewLocSettings.Dungeon[i].Encounters[j].Actions[k].cons!="")) { }
-                          File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j+1) + "/" + "Действие" + (k + 1) + "/" + "dis.txt", NewLocSettings.Dungeon[i].Encounters[j ].Actions[k].dis, Encoding.Default );
-                          File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j+1) + "/" + "Действие" + (k + 1) + "/" + "cons.txt", NewLocSettings.Dungeon[i].Encounters[j].Actions[k].cons, Encoding.Default );
-                       }
-                  }
+                          if ((NewLocSettings.Dungeon[i].Encounters[j].Actions[k].dis!= "")&(NewLocSettings.Dungeon[i].Encounters[j].Actions[k].cons!=""))
+                          {
+                            Directory.CreateDirectory(path + "/" + dungeon[i] + "/Encounters/" + (j + 1) + "/" + "Действие" + (k + 1));
+
+                            File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j + 1) + "/" + "Действие" + (k + 1) + "/" + "dis.txt", NewLocSettings.Dungeon[i].Encounters[j].Actions[k].dis, Encoding.Default);
+                            File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j + 1) + "/" + "Действие" + (k + 1) + "/" + "cons.txt", NewLocSettings.Dungeon[i].Encounters[j].Actions[k].cons, Encoding.Default);
+                          }
+                    }
+                }
             }
             NewLocSettings.Dispose();
             RefreshLocations(ListBox1);
@@ -146,39 +126,74 @@ namespace Dungeon_Creator
 
         public void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
             String selecteditm;
             if (ListBox1.SelectedIndex != -1)
             {
                 selecteditm = Convert.ToString(ListBox1.Items[ListBox1.SelectedIndex]);
-                if (selecteditm.Contains("Действие"))
-                {
-                    label2.Text = "Описание";
-                    label3.Text = "Последствия";
-                    String act = "/" + selecteditm + "/dis.txt";
-                    using (StreamReader fs = File.OpenText(currentdir + act))
-                    {
-                        string a = fs.ReadToEnd();
-                        richTextBox0.Text = a;
-                    }
-
-                    act = "/" + selecteditm + "/cons.txt";
-                    using (StreamReader fs = File.OpenText(currentdir + act))
-                    {
-                        string a = fs.ReadToEnd();
-                        richTextBox2.Text = a;
-                    }
-                }
-                else if (File.Exists(currentdir+"/"+selecteditm+"/"+"answer.txt")|| File.Exists(currentdir + "/" + selecteditm + "/" + "description.txt") || File.Exists(currentdir + "/" + selecteditm + "/" + "entrance.txt"))
+                if ((File.Exists(currentdir + "/" + selecteditm + "/" + "dis.txt")) & (selecteditm.Contains("Действие")))
                 {
                     try
                     {
+                        String act = "/" + selecteditm + "/dis.txt";
+                        byte[] info = File.ReadAllBytes(currentdir + act);
+                        string str = Encoding.Default.GetString(info, 0, info.Length);
+                        richTextBox4.Text = str;
+                    }
+                    finally
+                    {
+                        label6.Text = "Описание действия";
+                    }
+
+                    try
+                    {
+                        String act = "/" + selecteditm + "/cons.txt";
+                        byte[] info = File.ReadAllBytes(currentdir + act);
+                        string str = Encoding.Default.GetString(info, 0, info.Length);
+                        richTextBox5.Text = str;
+                        chousenActivity = currentdir + act;
+                    }
+                    finally
+                    {
+                        label7.Text = "Последствия выбора действия";
+                    }
+                    currentdir += "/" + selecteditm;
+                    
+
+                    getStep();
+
+                }
+                else if ((File.Exists(currentdir + "/" + selecteditm + "/" + "dis.txt")) & (currentdir.Contains("Encounters")))
+                {
+                    try
+                    {
+                        String act = "/" + selecteditm + "/dis.txt";
+                        byte[] info = File.ReadAllBytes(currentdir + act);
+                        string str = Encoding.Default.GetString(info, 0, info.Length);
+                        richTextBox3.Text = str;
+                        chiusenEncounter = currentdir+act;
+                    }
+                    finally
+                    {
+                        label5.Text = "Описание енкаунтера номер  "+ selecteditm;
+                    }
+
+                    currentdir += "/" + selecteditm;
+                    
+
+                    getStep();
+                }
+                else if (File.Exists(currentdir + "/" + selecteditm + "/" + "answer.txt") || File.Exists(currentdir + "/" + selecteditm + "/" + "description.txt") || File.Exists(currentdir + "/" + selecteditm + "/" + "entrance.txt"))
+                {
+
+                    chousenDungeon = currentdir + "/" + selecteditm;
+
+                    try
+                    {
                         String act = "/" + selecteditm + "/answer.txt";
-                        using (StreamReader fs = File.OpenText(currentdir + act))
-                        {
-                            string a = fs.ReadToEnd();
-                            richTextBox2.Text = a;
-                        }
+
+                        byte[] info = File.ReadAllBytes(currentdir + act);
+                        string str = Encoding.Default.GetString(info, 0, info.Length);
+                        richTextBox2.Text = str;
                     }
                     finally
                     {
@@ -187,11 +202,12 @@ namespace Dungeon_Creator
                     try
                     {
                         String act = "/" + selecteditm + "/description.txt";
-                        using (StreamReader fs = File.OpenText(currentdir + act))
-                        {
-                            string a = fs.ReadToEnd();
-                            richTextBox0.Text = a;
-                        }
+                       // String pathTodescription = act;
+
+                        byte[] info = File.ReadAllBytes(currentdir + act);
+                        
+                        string str = Encoding.Default.GetString(info, 0, info.Length);
+                        richTextBox0.Text = str;
                     }
                     finally
                     {
@@ -199,17 +215,25 @@ namespace Dungeon_Creator
                     }
                     try
                     {
-                        label4.Text = "Условие входа";
+                        String act = "/" + selecteditm + "/entrance.txt";
+
+                        byte[] info = File.ReadAllBytes(currentdir + act);
+                        string str = Encoding.Default.GetString(info, 0, info.Length);
+                        richTextBox1.Text = str;
                     }
                     finally
                     {
-                        String act = "/" + selecteditm + "/entrance.txt";
-                        using (StreamReader fs = File.OpenText(currentdir + act))
-                        {
-                            string a = fs.ReadToEnd();
-                            richTextBox1.Text = a;
-                        }
+                        label4.Text = "Условие входа";
                     }
+                    
+                    //MessageBox.Show(chousenDungeon+ "  'nj ds,fyysq lfy;");
+                    webBrowser1.Url = new Uri(currentdir + "/" + selecteditm + "/Map/" + "map.html");
+                    
+
+
+                    currentdir += "/" + selecteditm;
+
+                    getStep();
                 }
                 else
                 {
@@ -220,28 +244,9 @@ namespace Dungeon_Creator
                     }
                     else { currentdir = currentdir + "/" + selecteditm.Replace(currentdir, "").Replace("/", "").Replace(@"\", ""); }
 
-                  // MessageBox.Show(currentdir);
+                    //MessageBox.Show(currentdir);
 
-                    History.ClickCounter += 1;
-                    History.ChooseHistory[History.ClickCounter] = currentdir;
-                    String[] actions = Directory.GetDirectories(currentdir);
-
-                    if (actions.Length != 0)
-                    {
-                        ListBox1.Items.Clear();
-
-                        for (int i = 0; i <= actions.Length - 1; i++)
-                        {
-                            ListBox1.Items.Add(actions[i].Replace(currentdir + @"\", ""));
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Нет действий");
-                        currentdir = History.ChooseHistory[History.ClickCounter - 1];
-                        History.ChooseHistory[History.ClickCounter] = "";
-                        History.ClickCounter -= 1;
-                    }
+                    getStep();
                 }   
             }
         }
@@ -290,12 +295,71 @@ namespace Dungeon_Creator
         {
 
         }
+
+        private void richTextBox3_TextChanged(object sender, EventArgs e)
+        {
+            File.WriteAllText(chiusenEncounter.Replace("dis.txt", "")+"dis.txt", richTextBox3.Text, Encoding.Default);
+        }
+
+        private void richTextBox2_TextChanged(object sender, EventArgs e)
+        {
+            File.WriteAllText(chousenDungeon + "/" + "answer.txt", richTextBox2.Text, Encoding.Default);
+            
+        }
+        public void getStep()
+        {
+            History.ClickCounter += 1;
+            History.ChooseHistory[History.ClickCounter] = currentdir;
+            String[] actions = Directory.GetDirectories(currentdir);
+
+            if (actions.Length != 0)
+            {
+                ListBox1.Items.Clear();
+
+                for (int i = 0; i <= actions.Length - 1; i++)
+                {
+                    ListBox1.Items.Add(actions[i].Replace(currentdir + @"\", ""));
+                }
+            }
+            else
+            {
+                MessageBox.Show("Нет действий");
+                currentdir = History.ChooseHistory[History.ClickCounter - 1];
+                History.ChooseHistory[History.ClickCounter] = "";
+                History.ClickCounter -= 1;
+            }
+        }
+
+        private void richTextBox0_TextChanged(object sender, EventArgs e)
+        {
+            File.WriteAllText(chousenDungeon + "/" + "description.txt", richTextBox0.Text, Encoding.Default);
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            File.WriteAllText(chousenDungeon + "/" + "entrance.txt", richTextBox1.Text, Encoding.Default);
+        }
+
+        private void richTextBox4_TextChanged(object sender, EventArgs e)
+        {
+
+            File.WriteAllText(chousenActivity.Replace("cons.txt", "") + "dis.txt", richTextBox4.Text, Encoding.Default);
+
+        }
+
+        private void richTextBox5_TextChanged(object sender, EventArgs e)
+        {
+           
+            File.WriteAllText(chousenActivity.Replace("cons.txt", "") + "cons.txt", richTextBox5.Text, Encoding.Default);
+        }
     }
+
 
 
     public class History
     {
-        public String[] ChooseHistory= new String[4];
+        public String[] ChooseHistory= new String[9];
         public Int32 ClickCounter;
     }
+    
 }
