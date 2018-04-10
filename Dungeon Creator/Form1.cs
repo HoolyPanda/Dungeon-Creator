@@ -128,11 +128,13 @@ namespace Dungeon_Creator
                 for (int j = 0; j != NewLocSettings.Dungeon[i].Encounters.Length; j++)
                   {
                       Directory.CreateDirectory(path + "/" + dungeon[i] + "/Encounters/" + (j+1));
-                      for (int k = 0; k < 4; k++)
+                    File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j + 1) + "/" +  "dis.txt", NewLocSettings.Dungeon[i].Encounters[j].dis, Encoding.Default);
+                    for (int k = 0; k < 4; k++)
                       {
                           Directory.CreateDirectory(path + "/" + dungeon[i] + "/Encounters/" + (j+1) + "/" + "Действие" + (k + 1));
-                        //Здесь вытаскиваем описание и последствия 
-                        if ((NewLocSettings.Dungeon[i].Encounters[j].Actions[k].dis!= "")||(NewLocSettings.Dungeon[i].Encounters[j].Actions[k].cons!="")) { }
+                          //MessageBox.Show(NewLocSettings.Dungeon[i].Encounters[0].dis);
+                          //Здесь вытаскиваем описание и последствия 
+                          if ((NewLocSettings.Dungeon[i].Encounters[j].Actions[k].dis!= "")||(NewLocSettings.Dungeon[i].Encounters[j].Actions[k].cons!="")) { }
                           File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j+1) + "/" + "Действие" + (k + 1) + "/" + "dis.txt", NewLocSettings.Dungeon[i].Encounters[j ].Actions[k].dis, Encoding.Default );
                           File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j+1) + "/" + "Действие" + (k + 1) + "/" + "cons.txt", NewLocSettings.Dungeon[i].Encounters[j].Actions[k].cons, Encoding.Default );
                        }

@@ -19,12 +19,11 @@ namespace Dungeon_Creator
        // public  Location..Encounter[] Encounter = new Location.Encounter[1];
         public Location.Dungeon[] Dungeon = new Location.Dungeon[0];
         Boolean enc = true;
-        Boolean isActions = false;
         string path;
+        int save = 0;
         int dungeonSave = 0;
         int chousenenc;
         int chousenaaction;
-        int chousendungeon;
         public Form3()
         {
             InitializeComponent();
@@ -34,8 +33,6 @@ namespace Dungeon_Creator
         {
             if (listBox1.SelectedIndex!=-1)
             {
-               
-
                 int i = Dungeon[listBox1.SelectedIndex].Encounters.Length;
                
                 Array.Resize(ref Dungeon[listBox1.SelectedIndex].Encounters, i+=1);
@@ -62,7 +59,6 @@ namespace Dungeon_Creator
             Array.Resize(ref Dungeon, j);
             Dungeon[j-1].name = VB.InputBox("Name");
             Dungeon[j-1].Encounters = new Location.Dungeon.Encounter[0];
-
             listBox1.Items.Add(Dungeon[j-1].name);
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -91,24 +87,24 @@ namespace Dungeon_Creator
         }
         public void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int save = 0;
+            
             
             if (enc)
             {
 
                 if (listBox2.SelectedIndex != -1)
                 {
-                    
-                    label5.Text = "Действия";
                     if (listBox1.SelectedIndex != -1)
                     {
                         //dungeonSave = listBox1.SelectedIndex;
                         listBox1.SetSelected(listBox1.SelectedIndex, false);
                     }
 
-                   
+                    label5.Text = "Действия";
                     //MessageBox.Show(Convert.ToString(listBox1.SelectedIndex));
                     save = listBox2.SelectedIndex;
+                    chousenenc = save;
+                    //MessageBox.Show(Convert.ToString(save));
                     listBox2.Items.Clear();
                     
                     for (int i = 0; i < 4; i++)
@@ -129,13 +125,14 @@ namespace Dungeon_Creator
                     {
                        // dungeonSave = listBox1.SelectedIndex;
                         listBox1.SetSelected(listBox1.SelectedIndex, false);
-                        richTextBox1.Text = "";
+                        //richTextBox1.Text = "";
                     }
-                    chousenenc = save;
-                    chousenaaction = listBox2.SelectedIndex; label7.Text = "Описание";
+                    label7.Text = "Описание действия";
                     richTextBox2.Text = Dungeon[dungeonSave].Encounters[save].Actions[listBox2.SelectedIndex].dis;
-                    label8.Text = "Последствия";
+                    label8.Text = "Последствия действия";
                     richTextBox0.Text = Dungeon[dungeonSave].Encounters[save].Actions[listBox2.SelectedIndex].cons;
+                    label9.Text = "Описание енкаунтера, выбранного ранее";
+                    richTextBox1.Text = Dungeon[dungeonSave].Encounters[save].dis;   
                 }
                 
             }
@@ -161,7 +158,7 @@ namespace Dungeon_Creator
                 
             }
             path = FD.FileName;
-            MessageBox.Show(path);
+            //MessageBox.Show(path);
             using (StreamReader test = new StreamReader(path))
             {
                 string a = test.ReadToEnd();
@@ -218,7 +215,7 @@ namespace Dungeon_Creator
                     Dungeon[listBox1.SelectedIndex].imgName = fs.Name;
                     MessageBox.Show(fs.Name);
                 }
-                MessageBox.Show(Dungeon[listBox1.SelectedIndex].imgPath);
+               // MessageBox.Show(Dungeon[listBox1.SelectedIndex].imgPath);
             }
             else
             {
@@ -228,7 +225,7 @@ namespace Dungeon_Creator
         private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
             String save = richTextBox2.Text;
-            if ((listBox1.SelectedIndex != -1)&(save != ""))
+            if ((listBox1.SelectedIndex != -1))
             {
                 Dungeon[listBox1.SelectedIndex].description = richTextBox2.Text;
             }
@@ -240,7 +237,7 @@ namespace Dungeon_Creator
         private void richTextBox0_TextChanged(object sender, EventArgs e)
         {
             String save = richTextBox0.Text;
-            if ((listBox1.SelectedIndex != -1) &(save != ""))
+            if ((listBox1.SelectedIndex != -1) )
             {
                 Dungeon[listBox1.SelectedIndex].entrance = richTextBox0.Text;
             }
@@ -255,7 +252,11 @@ namespace Dungeon_Creator
             {
                 Dungeon[listBox1.SelectedIndex].answer = richTextBox1.Text;
             }
-           // enc=true;
+            else
+            {
+                Dungeon[dungeonSave].Encounters[chousenenc].dis= richTextBox1.Text; //защитить
+            }
+            // enc=true;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -270,6 +271,7 @@ namespace Dungeon_Creator
 
         private void button1_Click(object sender, EventArgs e)
         {
+            listBox1.SetSelected(dungeonSave ,true);
             listBox2.Items.Clear();
             for (int i = 0; i <= Dungeon[ dungeonSave ].Encounters.Length - 1; i++)
             {
@@ -277,6 +279,41 @@ namespace Dungeon_Creator
             }
             label5.Text = "Енкаунтеры";
             enc = true;
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+            if (label9.Text.Equals("Описание енкаунтера, выбранного ранее"))
+            {
+                MessageBox.Show("Это то, что увидит пользователь когда наступит енкаунтер");
+            }
+            else if(label9.Text.Equals("Ответ"))
+            {
+                MessageBox.Show("Это то, что дети должны осуществить для прохода в данж");
+            }
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+            if (label8.Text.Equals("Условие Входа"))
+            {
+                MessageBox.Show("Это та, инфомация, котоарая доступна детям");
+            }
+            else if (label8.Text.Equals("Последствия действия"))
+            {
+                MessageBox.Show("Это то, что произойдет если дети выберут именно это действие");
+            }
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+            if (label7.Text.Equals("Описание"))
+            {
+                MessageBox.Show("Это описание данжа");
+            } else if (label7.Text.Equals("Описание действия"))
+            {
+                MessageBox.Show("Это описание действия");
+            }
         }
     }
 
