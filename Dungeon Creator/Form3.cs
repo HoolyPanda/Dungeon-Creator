@@ -27,6 +27,7 @@ namespace Dungeon_Creator
         public Form3()
         {
             InitializeComponent();
+            
             //textBox1.Focus();
         }
         public void listBoxDoubleClick(object sender, EventArgs e)
@@ -213,7 +214,11 @@ namespace Dungeon_Creator
                     FileInfo fs = new FileInfo(FD.FileName);
                     Dungeon[listBox1.SelectedIndex].imgPath = FD.FileName;
                     Dungeon[listBox1.SelectedIndex].imgName = fs.Name;
-                    MessageBox.Show(fs.Name);
+
+                    pictureBox1.ImageLocation = FD.FileName;
+                    pictureBox1.Load();
+                   
+                   // MessageBox.Show(fs.Name);
                 }
                // MessageBox.Show(Dungeon[listBox1.SelectedIndex].imgPath);
             }
@@ -314,6 +319,11 @@ namespace Dungeon_Creator
             {
                 MessageBox.Show("Это описание действия");
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 

@@ -25,12 +25,16 @@ namespace Dungeon_Creator
         String[] Locations;
         String currentdir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/DungeonCreator";
         String chousenDungeon;
+        Boolean rewriteAllow;
         String chiusenEncounter= "";
         String chousenActivity= "";
         History History= new History();
         public Form1()
         {
+
+           
             InitializeComponent();
+            //Form1.SetDesktopLocation(1, 1);
 
             if (Directory.Exists(path1))
             {
@@ -65,6 +69,7 @@ namespace Dungeon_Creator
         public void button1_Click_1(object sender, EventArgs e)
         {
             Form3 NewLocSettings = new Form3();
+            NewLocSettings.SetDesktopLocation(100,100);
             NewLocSettings.ShowDialog();
             string path = path1;
             //Делаем локацию
@@ -87,10 +92,10 @@ namespace Dungeon_Creator
                 try
                 {
                     //MessageBox.Show(NewLocSettings.Dungeon[i-1].imgPath);
-                    File.Copy(NewLocSettings.Dungeon[i].imgPath , path + "/" + dungeon[i] + "/" + "Map" + "/"+ NewLocSettings.Dungeon[i].imgName);
+                    File.Copy(NewLocSettings.Dungeon[i].imgPath , path + "/" + dungeon[i] + "/" + "Map" + "/"+ "img");
                     using (FileStream fs = File.Create(path + "/" + dungeon[i] + "/" + "Map" + "/" + "map.html"))
                     {
-                        String s = "<body style=\"background-color:#000000;\" > <img src=\" " + (NewLocSettings.Dungeon[i].imgName) + "\" /></body>";
+                        String s = "<body style=\"background-color:#000000;\" > <img src=\" " + "img" + "\" /></body>";
                         AddText(fs, s);
                     }
                 }
@@ -106,6 +111,7 @@ namespace Dungeon_Creator
                 {
                       Directory.CreateDirectory(path + "/" + dungeon[i] + "/Encounters/" + (j+1));
                     File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j + 1) + "/" +  "dis.txt", NewLocSettings.Dungeon[i].Encounters[j].dis, Encoding.Default);
+                    MessageBox.Show("Miss me?2");
                     for (int k = 0; k < 4; k++)
                     {
                          
@@ -115,6 +121,7 @@ namespace Dungeon_Creator
                             Directory.CreateDirectory(path + "/" + dungeon[i] + "/Encounters/" + (j + 1) + "/" + "Действие" + (k + 1));
 
                             File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j + 1) + "/" + "Действие" + (k + 1) + "/" + "dis.txt", NewLocSettings.Dungeon[i].Encounters[j].Actions[k].dis, Encoding.Default);
+                            MessageBox.Show("Miss me?");
                             File.WriteAllText(path + "/" + dungeon[i] + "/Encounters/" + (j + 1) + "/" + "Действие" + (k + 1) + "/" + "cons.txt", NewLocSettings.Dungeon[i].Encounters[j].Actions[k].cons, Encoding.Default);
                           }
                     }
@@ -132,11 +139,13 @@ namespace Dungeon_Creator
                 selecteditm = Convert.ToString(ListBox1.Items[ListBox1.SelectedIndex]);
                 if ((File.Exists(currentdir + "/" + selecteditm + "/" + "dis.txt")) & (selecteditm.Contains("Действие")))
                 {
+                    rewriteAllow = false;
                     try
                     {
                         String act = "/" + selecteditm + "/dis.txt";
-                        byte[] info = File.ReadAllBytes(currentdir + act);
+                        byte[] info = File.ReadAllBytes(currentdir + act );
                         string str = Encoding.Default.GetString(info, 0, info.Length);
+                        chousenActivity = currentdir + "/" + selecteditm;
                         richTextBox4.Text = str;
                     }
                     finally
@@ -149,21 +158,23 @@ namespace Dungeon_Creator
                         String act = "/" + selecteditm + "/cons.txt";
                         byte[] info = File.ReadAllBytes(currentdir + act);
                         string str = Encoding.Default.GetString(info, 0, info.Length);
+                        
                         richTextBox5.Text = str;
-                        chousenActivity = currentdir + act;
+                        
                     }
                     finally
                     {
                         label7.Text = "Последствия выбора действия";
                     }
                     currentdir += "/" + selecteditm;
-                    
 
+                    rewriteAllow = true;
                     getStep();
 
                 }
                 else if ((File.Exists(currentdir + "/" + selecteditm + "/" + "dis.txt")) & (currentdir.Contains("Encounters")))
                 {
+                    rewriteAllow = false;
                     try
                     {
                         String act = "/" + selecteditm + "/dis.txt";
@@ -178,13 +189,13 @@ namespace Dungeon_Creator
                     }
 
                     currentdir += "/" + selecteditm;
-                    
+                    rewriteAllow = true;
 
                     getStep();
                 }
                 else if (File.Exists(currentdir + "/" + selecteditm + "/" + "answer.txt") || File.Exists(currentdir + "/" + selecteditm + "/" + "description.txt") || File.Exists(currentdir + "/" + selecteditm + "/" + "entrance.txt"))
                 {
-
+                    rewriteAllow = false;
                     chousenDungeon = currentdir + "/" + selecteditm;
 
                     try
@@ -228,11 +239,15 @@ namespace Dungeon_Creator
                     
                     //MessageBox.Show(chousenDungeon+ "  'nj ds,fyysq lfy;");
                     webBrowser1.Url = new Uri(currentdir + "/" + selecteditm + "/Map/" + "map.html");
-                    
+                    if (!webBrowser1.DocumentText.Equals("<body style=\"background-color:#000000;\" > <img src=\" " + "img" + "\" /></body>"))
+                    {
+                        button1.Text = "Добавить карту";
+                    }
+
 
 
                     currentdir += "/" + selecteditm;
-
+                    rewriteAllow = true;
                     getStep();
                 }
                 else
@@ -284,7 +299,7 @@ namespace Dungeon_Creator
                 else
                 {
 
-                    MessageBox.Show("Нет действий");
+                    //MessageBox.Show("Нет действий");
                 }
                 History.ClickCounter -= 1;
             }
@@ -298,7 +313,10 @@ namespace Dungeon_Creator
 
         private void richTextBox3_TextChanged(object sender, EventArgs e)
         {
-            File.WriteAllText(chiusenEncounter.Replace("dis.txt", "")+"dis.txt", richTextBox3.Text, Encoding.Default);
+            if (rewriteAllow)
+            {
+                File.WriteAllText(chiusenEncounter.Replace("dis.txt", "") + "dis.txt", richTextBox3.Text, Encoding.Default);
+            }
         }
 
         private void richTextBox2_TextChanged(object sender, EventArgs e)
@@ -323,7 +341,7 @@ namespace Dungeon_Creator
             }
             else
             {
-                MessageBox.Show("Нет действий");
+               // MessageBox.Show("Нет действий");
                 currentdir = History.ChooseHistory[History.ClickCounter - 1];
                 History.ChooseHistory[History.ClickCounter] = "";
                 History.ClickCounter -= 1;
@@ -337,20 +355,68 @@ namespace Dungeon_Creator
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            File.WriteAllText(chousenDungeon + "/" + "entrance.txt", richTextBox1.Text, Encoding.Default);
+           File.WriteAllText(chousenDungeon + "/" + "entrance.txt", richTextBox1.Text, Encoding.Default);
         }
 
         private void richTextBox4_TextChanged(object sender, EventArgs e)
         {
-
-            File.WriteAllText(chousenActivity.Replace("cons.txt", "") + "dis.txt", richTextBox4.Text, Encoding.Default);
-
+           File.WriteAllText(chousenActivity+ "/dis.txt", richTextBox4.Text, Encoding.Default);
         }
 
         private void richTextBox5_TextChanged(object sender, EventArgs e)
         {
-           
-            File.WriteAllText(chousenActivity.Replace("cons.txt", "") + "cons.txt", richTextBox5.Text, Encoding.Default);
+           // MessageBox.Show(chousenActivity);
+            try
+            {
+                File.WriteAllText(chousenActivity+"/cons.txt", richTextBox5.Text, Encoding.Default);
+            }
+            catch
+            {
+                MessageBox.Show("error");
+            }
+          
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //сделать создание файлов 
+            OpenFileDialog FD = new OpenFileDialog();
+            if (FD.ShowDialog() == DialogResult.OK)
+            {
+                FileInfo fs = new FileInfo(FD.FileName);
+                try
+                {
+                    File.Delete(chousenDungeon + "/Map/img");
+                    File.Copy(FD.FileName, chousenDungeon + "/Map/img");
+                    //if () { }
+                    // webBrowser1.Print();
+                    webBrowser1.Refresh();
+                    String a= webBrowser1.DocumentText;
+                    if (webBrowser1.DocumentText.Equals("<body style=\"background-color:#000000;\" > <img src=\" " + "img" + "\" /></body>"))
+                    {
+                        
+                    }
+                    else
+                    {
+                        File.WriteAllText(chousenDungeon + "/Map/map.html", "<body style=\"background-color:#000000;\" > <img src=\" " + "img" + "\" /></body>", Encoding.Default);
+                        MessageBox.Show("woops!");
+                    }
+                    //"<body style=\"background-color:#000000;\" > <img src=\" " + "img" + "\" /></body>"
+                   // MessageBox.Show(a);
+                   
+                }
+                catch
+                {
+                    
+                }
+
+                // MessageBox.Show(fs.Name);
+            }
         }
     }
 
