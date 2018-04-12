@@ -46,6 +46,8 @@
             this.richTextBox5 = new System.Windows.Forms.RichTextBox();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.button1 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -63,7 +65,7 @@
             this.richTextBox0.Name = "richTextBox0";
             this.richTextBox0.Size = new System.Drawing.Size(270, 130);
             this.richTextBox0.TabIndex = 8;
-            this.richTextBox0.Text = "descr";
+            this.richTextBox0.Text = "";
             this.richTextBox0.TextChanged += new System.EventHandler(this.richTextBox0_TextChanged);
             // 
             // ListBox1
@@ -101,7 +103,7 @@
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(270, 130);
             this.richTextBox2.TabIndex = 12;
-            this.richTextBox2.Text = "description";
+            this.richTextBox2.Text = "";
             this.richTextBox2.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
             // 
             // label2
@@ -138,7 +140,7 @@
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(270, 130);
             this.richTextBox1.TabIndex = 16;
-            this.richTextBox1.Text = "entr";
+            this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // label5
@@ -164,18 +166,18 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(242, 156);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.Size = new System.Drawing.Size(107, 13);
             this.label6.TabIndex = 21;
-            this.label6.Text = "label6";
+            this.label6.Text = "Описание действия";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(515, 155);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.Size = new System.Drawing.Size(124, 13);
             this.label7.TabIndex = 20;
-            this.label7.Text = "label7";
+            this.label7.Text = "Последствия действия";
             // 
             // richTextBox4
             // 
@@ -197,15 +199,15 @@
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(245, 308);
+            this.webBrowser1.Location = new System.Drawing.Point(327, 308);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(807, 241);
+            this.webBrowser1.Size = new System.Drawing.Size(725, 241);
             this.webBrowser1.TabIndex = 24;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(316, 555);
+            this.button1.Location = new System.Drawing.Point(327, 555);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(269, 23);
             this.button1.TabIndex = 25;
@@ -213,11 +215,34 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(242, 321);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 26;
+            this.button3.Text = "Новй данж";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(242, 379);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 36);
+            this.button4.TabIndex = 27;
+            this.button4.Text = "Новый Енкаунтер";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1077, 590);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.label5);
@@ -263,6 +288,8 @@
         private System.Windows.Forms.RichTextBox richTextBox5;
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
     }
 }
 
