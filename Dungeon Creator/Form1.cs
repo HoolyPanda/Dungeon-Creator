@@ -50,6 +50,12 @@ namespace Dungeon_Creator
             else {
                 Directory.CreateDirectory(path1);
                 MessageBox.Show("Еще не создано не одной локации, начинаем работу");
+                Locations = Directory.GetDirectories(path1);
+                for (int i = 0; i <= Locations.Length - 1; i++)
+                {
+                    dirInfo = new DirectoryInfo(Locations[i]);
+                    ListBox1.Items.Add(dirInfo.Name);
+                }
             }
             History.ChooseHistory[0] = path1;
         }
