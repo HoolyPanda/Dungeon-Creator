@@ -55,12 +55,21 @@ namespace Dungeon_Creator
         }
         public void list1DoubleClick(object sender, EventArgs e)
         {
-            int j = Dungeon.Length;
-            j++;
-            Array.Resize(ref Dungeon, j);
-            Dungeon[j-1].name = VB.InputBox("Name");
-            Dungeon[j-1].Encounters = new Location.Dungeon.Encounter[0];
-            listBox1.Items.Add(Dungeon[j-1].name);
+            string newName= VB.InputBox("Name");
+            if ((!newName.Equals("")) & (!newName.Equals(" ")))
+            {
+                int j = Dungeon.Length;
+                j++;
+                Array.Resize(ref Dungeon, j);
+                Dungeon[j - 1].name = newName;
+                Dungeon[j - 1].Encounters = new Location.Dungeon.Encounter[0];
+                listBox1.Items.Add(Dungeon[j - 1].name);
+            }
+            else
+            {
+                MessageBox.Show("error");
+            }
+           
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

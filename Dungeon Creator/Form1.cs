@@ -222,9 +222,7 @@ namespace Dungeon_Creator
                     {
                         String act = "/" + selecteditm + "/description.txt";
                         // String pathTodescription = act;
-
                         byte[] info = File.ReadAllBytes(currentdir + act);
-
                         string str = Encoding.Default.GetString(info, 0, info.Length);
                         richTextBox0.Text = str;
                     }
@@ -235,7 +233,6 @@ namespace Dungeon_Creator
                     try
                     {
                         String act = "/" + selecteditm + "/entrance.txt";
-
                         byte[] info = File.ReadAllBytes(currentdir + act);
                         string str = Encoding.Default.GetString(info, 0, info.Length);
                         richTextBox1.Text = str;
@@ -244,8 +241,7 @@ namespace Dungeon_Creator
                     {
                         label4.Text = "Условие входа";
                     }
-
-                   // MessageBox.Show(History.ChooseHistory[1] +"/"+selecteditm+ "/Map/" + "map.html");
+                    // MessageBox.Show(History.ChooseHistory[1] +"/"+selecteditm+ "/Map/" + "map.html");
                     //MessageBox.Show(History.ChooseHistory[1] + "/Map/" + "map.html");
                     webBrowser1.Url = new Uri(History.ChooseHistory[1] + "/" + selecteditm +"/Map/" + "map.html");
                    
@@ -253,9 +249,6 @@ namespace Dungeon_Creator
                     {
                         button1.Text = "Добавить карту";
                     }
-
-
-
                     currentdir += "/" + selecteditm;
                     rewriteAllow = true;
                     getStep();
@@ -308,8 +301,7 @@ namespace Dungeon_Creator
                 }
                 else
                 {
-
-                    //MessageBox.Show("Нет действий");
+                    
                 }
                 History.ClickCounter -= 1;
             }
