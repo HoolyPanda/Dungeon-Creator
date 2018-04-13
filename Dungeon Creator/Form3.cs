@@ -38,7 +38,7 @@ namespace Dungeon_Creator
                
                 Array.Resize(ref Dungeon[listBox1.SelectedIndex].Encounters, i+=1);
                //MessageBox.Show(Convert.ToString(i));
-                i--;// было 0 стало 1 спросить
+                i--;// было 0 стало 1 шты
                 //MessageBox.Show(Dungeon[listBox1.SelectedIndex].name);
 
                 Dungeon[listBox1.SelectedIndex].Encounters[i].name = Convert.ToString(i+1);

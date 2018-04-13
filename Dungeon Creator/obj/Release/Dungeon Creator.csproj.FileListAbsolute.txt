@@ -10,3 +10,4 @@ C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon Creator.csproj.CoreCompileInputs.cache
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon Creator.exe
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon Creator.pdb
+C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon_Creator.Form4.resources
