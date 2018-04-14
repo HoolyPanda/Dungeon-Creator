@@ -112,7 +112,6 @@
             // 
             // listBox2
             // 
-            this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(8, 240);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(120, 173);
@@ -140,9 +139,9 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(712, 24);
+            this.richTextBox1.Location = new System.Drawing.Point(158, 323);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(263, 130);
+            this.richTextBox1.Size = new System.Drawing.Size(272, 130);
             this.richTextBox1.TabIndex = 14;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged_1);
@@ -150,7 +149,7 @@
             // 
             // richTextBox0
             // 
-            this.richTextBox0.Location = new System.Drawing.Point(436, 24);
+            this.richTextBox0.Location = new System.Drawing.Point(160, 173);
             this.richTextBox0.Name = "richTextBox0";
             this.richTextBox0.Size = new System.Drawing.Size(270, 130);
             this.richTextBox0.TabIndex = 13;
@@ -171,7 +170,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(433, 8);
+            this.label8.Location = new System.Drawing.Point(157, 157);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(35, 13);
             this.label8.TabIndex = 18;
@@ -181,7 +180,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(709, 8);
+            this.label9.Location = new System.Drawing.Point(155, 307);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 13);
             this.label9.TabIndex = 19;
@@ -190,9 +189,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(292, 419);
+            this.button4.Location = new System.Drawing.Point(436, 430);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(270, 23);
+            this.button4.Size = new System.Drawing.Size(259, 23);
             this.button4.TabIndex = 23;
             this.button4.Text = "Выбрать карту";
             this.button4.UseVisualStyleBackColor = true;
@@ -211,9 +210,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(158, 160);
+            this.pictureBox1.Location = new System.Drawing.Point(436, 24);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(548, 253);
+            this.pictureBox1.Size = new System.Drawing.Size(259, 400);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 26;
             this.pictureBox1.TabStop = false;
@@ -223,7 +222,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(986, 448);
+            this.ClientSize = new System.Drawing.Size(706, 463);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button4);

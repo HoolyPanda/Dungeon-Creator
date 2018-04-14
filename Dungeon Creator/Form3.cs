@@ -16,7 +16,6 @@ namespace Dungeon_Creator
     public partial class Form3 : Form
     {
         public Location NewLocation = new Location();
-       // public  Location..Encounter[] Encounter = new Location.Encounter[1];
         public Location.Dungeon[] Dungeon = new Location.Dungeon[0];
         Boolean enc = true;
         string path;
@@ -27,8 +26,6 @@ namespace Dungeon_Creator
         public Form3()
         {
             InitializeComponent();
-            
-            //textBox1.Focus();
         }
         public void listBoxDoubleClick(object sender, EventArgs e)
         {
@@ -285,14 +282,23 @@ namespace Dungeon_Creator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            listBox1.SetSelected(dungeonSave ,true);
-            listBox2.Items.Clear();
-            for (int i = 0; i <= Dungeon[ dungeonSave ].Encounters.Length - 1; i++)
-            {
-                listBox2.Items.Add(Dungeon[dungeonSave].Encounters[i].name);
-            }
-            label5.Text = "Енкаунтеры";
-            enc = true;
+            
+            
+            
+                if (listBox1.Items.Count!= 0)
+                {
+                    listBox1.SetSelected(dungeonSave, true);
+                    listBox2.Items.Clear();
+                    for (int i = 0; i <= Dungeon[dungeonSave].Encounters.Length - 1; i++)
+                    {
+                        listBox2.Items.Add(Dungeon[dungeonSave].Encounters[i].name);
+                    }
+                    label5.Text = "Енкаунтеры";
+                    enc = true;
+                }
+
+           
+           
         }
 
         private void label9_Click(object sender, EventArgs e)
