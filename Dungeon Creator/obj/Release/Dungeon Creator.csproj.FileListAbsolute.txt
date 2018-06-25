@@ -1,7 +1,6 @@
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\bin\Release\Dungeon Creator.exe.config
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\bin\Release\Dungeon Creator.exe
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\bin\Release\Dungeon Creator.pdb
-C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon Creator.csprojResolveAssemblyReference.cache
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon_Creator.Form1.resources
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon_Creator.Form2.resources
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon_Creator.Form3.resources
@@ -10,4 +9,4 @@ C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon Creator.csproj.CoreCompileInputs.cache
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon Creator.exe
 C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon Creator.pdb
-C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon_Creator.Form4.resources
+C:\Users\Pavlo\source\repos\Dungeon Creator\Dungeon-Creator\Dungeon Creator\obj\Release\Dungeon Creator.csprojAssemblyReference.cache

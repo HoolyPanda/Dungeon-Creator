@@ -282,9 +282,6 @@ namespace Dungeon_Creator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            
-            
                 if (listBox1.Items.Count!= 0)
                 {
                     listBox1.SetSelected(dungeonSave, true);
@@ -296,9 +293,7 @@ namespace Dungeon_Creator
                     label5.Text = "Енкаунтеры";
                     enc = true;
                 }
-
-           
-           
+                
         }
 
         private void label9_Click(object sender, EventArgs e)
@@ -336,9 +331,9 @@ namespace Dungeon_Creator
             }
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            
+            Close();
         }
     }
 
