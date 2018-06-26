@@ -183,7 +183,7 @@ namespace Dungeon_Creator
             }
             path = FD.FileName;
             byte[] info = File.ReadAllBytes(path);
-            string str = Encoding.Default.GetString(info, 0, info.Length);
+            string str = Encoding.UTF8.GetString(info, 0, info.Length);
             richTextBox0.Text = str;
         }
         void richTextBox2DoubleClick(object sender, EventArgs e)
@@ -195,7 +195,7 @@ namespace Dungeon_Creator
             }
             path = FD.FileName;
             byte[] info = File.ReadAllBytes(path);
-            string str = Encoding.Default.GetString(info, 0, info.Length);
+            string str = Encoding.UTF8.GetString(info, 0, info.Length);
             richTextBox2.Text = str;
         }
         void richTextBox1DoubleClick(object sender, EventArgs e)
@@ -207,7 +207,7 @@ namespace Dungeon_Creator
             }
             path = FD.FileName;
             byte[] info = File.ReadAllBytes(path);
-            string str = Encoding.Default.GetString(info, 0, info.Length);
+            string str = Encoding.UTF8.GetString(info, 0, info.Length);
             richTextBox1.Text = str;
         } 
         private void button4_Click(object sender, EventArgs e)
